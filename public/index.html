@@ -3,23 +3,310 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Split FFA Shop | Custom Maces, Swords & Premium Kits</title>
+    <title>Split FFA Shop | Premium Minecraft Kits</title>
     <meta
       name="description"
-      content="Official Split FFA Minecraft shop. Unlock Split, Split+, VIP and Custom Kit perks for the 200+ players FFA mace server at 194.164.96.21:25619."
+      content="Official Split FFA Minecraft shop for the 200+ players mace PvP server. Buy Split, Split+, VIP and Custom Kit packs with simple PayPal checkout."
     />
     <meta name="theme-color" content="#07101d" />
     <meta property="og:title" content="Split FFA Shop" />
     <meta
       property="og:description"
-      content="Official store for Split FFA. Premium kits, custom items, and PayPal checkout for the 200+ players mace PvP server."
+      content="Premium Minecraft shop for Split FFA with custom items, custom scripts and direct PayPal checkout."
     />
     <meta property="og:type" content="website" />
-    <link rel="preload" href="/style.css" as="style" />
-    <link rel="stylesheet" href="/style.css" />
+    <style>
+      :root {
+        --bg: #07101d;
+        --bg-soft: #0d1a2c;
+        --card: rgba(11, 27, 49, 0.92);
+        --card-strong: rgba(12, 30, 55, 0.98);
+        --border: rgba(181, 226, 255, 0.12);
+        --accent: #ffd54f;
+        --accent-2: #82d7ff;
+        --text: #f3f8ff;
+        --muted: #b7c9da;
+        --soft: #88a1b7;
+        --shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        --radius: 24px;
+        --radius-sm: 16px;
+        --container: 1180px;
+        --ease: 0.18s ease-out;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: auto; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 12% 18%, rgba(255, 213, 79, 0.12) 0%, transparent 24%),
+          radial-gradient(circle at 84% 12%, rgba(130, 215, 255, 0.14) 0%, transparent 26%),
+          linear-gradient(180deg, #07101d 0%, #091423 42%, #050b14 100%);
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background:
+          linear-gradient(rgba(130, 215, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(130, 215, 255, 0.03) 1px, transparent 1px);
+        background-size: 88px 88px;
+        opacity: 0.35;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; }
+      .wrap { position: relative; }
+      .container { width: min(100% - 2rem, var(--container)); margin: 0 auto; }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(7, 16, 29, 0.96);
+        border-bottom: 1px solid rgba(181, 226, 255, 0.08);
+      }
+      .header-inner {
+        min-height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .brand, .main-nav, .hero-actions, .hero-tags, .showcase-top, .payment-card-top, .final-actions, .footer-links {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+      }
+      .brand { gap: 0.85rem; }
+      .brand-mark {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #08111f;
+        font-weight: 900;
+        box-shadow: 0 6px 16px rgba(255, 213, 79, 0.16);
+      }
+      .brand strong, .brand small, .main-nav a, .btn, .label, .pill, .meta-value, .price {
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      }
+      .brand small, .meta-label, .copy, .body, .faq-card p, .feature-card p, .step-card p, .footer-copy, .help {
+        color: var(--muted);
+      }
+      .brand small { display: block; font-size: 0.78rem; }
+      .main-nav a {
+        padding: 0.75rem 1rem;
+        border-radius: 999px;
+        color: var(--muted);
+        transition: background var(--ease), color var(--ease);
+      }
+      .main-nav a:hover { background: rgba(130, 215, 255, 0.08); color: var(--text); }
+
+      .hero, .section { padding: 2.5rem 0 4rem; }
+      .hero-grid, .about-grid, .payment-grid {
+        display: grid;
+        gap: 1.25rem;
+      }
+      .hero-grid { grid-template-columns: 1.06fr 0.94fr; align-items: center; }
+      .about-grid, .payment-grid { grid-template-columns: 1.05fr 0.95fr; }
+
+      .label, .feature-kicker, .step-num, .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        padding: 0.35rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .label { padding: 0; min-height: 0; color: var(--accent); letter-spacing: 0.12em; }
+      .pill { color: var(--accent-2); background: rgba(130, 215, 255, 0.1); border: 1px solid rgba(130, 215, 255, 0.16); }
+      .pill.gold { color: #08111f; background: linear-gradient(135deg, var(--accent), #ffe38d); border: 0; }
+      .feature-kicker, .step-num { color: var(--accent-2); background: rgba(130, 215, 255, 0.1); border: 1px solid rgba(130, 215, 255, 0.16); }
+
+      h1, h2, h3, p { margin: 0; }
+      h1, h2, h3 { font-family: "Trebuchet MS", "Segoe UI", sans-serif; }
+      h1 { margin-top: 1rem; font-size: clamp(2.8rem, 6vw, 5rem); line-height: 0.98; letter-spacing: -0.04em; }
+      h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
+      .gradient {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .copy { max-width: 40rem; margin-top: 1rem; line-height: 1.7; }
+      .hero-tags { flex-wrap: wrap; margin-top: 1rem; }
+      .hero-tags span {
+        padding: 0.5rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(181, 226, 255, 0.1);
+        background: rgba(10, 24, 45, 0.72);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .btn {
+        min-height: 54px;
+        padding: 0.95rem 1.3rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-weight: 800;
+        transition: transform var(--ease), box-shadow var(--ease), background var(--ease);
+      }
+      .btn:hover { transform: translateY(-2px); }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), #ffe38d);
+        color: #08111f;
+        border: 0;
+        box-shadow: 0 10px 22px rgba(255, 213, 79, 0.16);
+      }
+      .btn-secondary, .mini-btn {
+        background: rgba(12, 28, 52, 0.78);
+        color: var(--text);
+      }
+      .mini-btn {
+        min-height: 42px;
+        padding: 0.75rem 0.95rem;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+      }
+
+      .cards-3, .kits-grid, .faq-grid {
+        display: grid;
+        gap: 1.25rem;
+      }
+      .cards-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .kits-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .faq-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-meta {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .card, .showcase, .meta-card {
+        position: relative;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent), var(--card);
+        box-shadow: var(--shadow);
+      }
+      .card, .meta-card { padding: 1.6rem; }
+      .showcase { padding: 2rem; background: linear-gradient(145deg, rgba(255, 213, 79, 0.06), transparent 26%), var(--card-strong); }
+      .card::before, .showcase::before, .meta-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      }
+      .meta-value, .price { color: var(--accent); font-weight: 900; }
+      .meta-value { font-size: 1.35rem; }
+      .meta-label { display: block; margin-top: 0.35rem; color: var(--soft); }
+      .showcase h2 { font-size: 2rem; line-height: 1.08; }
+      .list, .kit-features { margin: 1.2rem 0 0; padding: 0; list-style: none; }
+      .list li, .kit-features li {
+        position: relative;
+        padding-left: 1.2rem;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+      .list li + li, .kit-features li + li { margin-top: 0.45rem; }
+      .list li::before, .kit-features li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.72rem;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      }
+      .bar, .server-card {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(181, 226, 255, 0.08);
+      }
+      .bar { display: flex; justify-content: space-between; gap: 1rem; }
+      .server-card { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+
+      .section-head { max-width: 42rem; margin-bottom: 2rem; }
+      .section-head p { margin-top: 0.85rem; color: var(--muted); line-height: 1.7; }
+      .featured { background: linear-gradient(160deg, rgba(255, 213, 79, 0.08), rgba(130, 215, 255, 0.06)), var(--card-strong); }
+      .price { margin-top: 0.7rem; font-size: 2rem; }
+      .kit-copy, .help { margin-top: 0.85rem; line-height: 1.7; }
+      .kit-actions { margin-top: 1.4rem; }
+      .kit-actions .btn { width: 100%; }
+      .stack { display: grid; gap: 1rem; }
+      .info-title { display: block; margin-bottom: 0.4rem; color: var(--soft); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em; }
+      .payment-card-top { justify-content: space-between; margin-bottom: 1rem; }
+      code {
+        padding: 0.15rem 0.45rem;
+        border-radius: 8px;
+        border: 1px solid rgba(181, 226, 255, 0.08);
+        background: rgba(6, 15, 28, 0.68);
+        color: var(--accent);
+      }
+      .final { background: linear-gradient(160deg, rgba(255, 213, 79, 0.08), rgba(130, 215, 255, 0.06)), var(--card-strong); }
+      .footer {
+        padding: 2rem 0 2.6rem;
+        border-top: 1px solid rgba(181, 226, 255, 0.08);
+      }
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .footer-copy { margin: 0; color: var(--soft); }
+
+      .paypal-button[aria-disabled="true"] {
+        pointer-events: none;
+        opacity: 0.72;
+        background: linear-gradient(135deg, #8ea0b3, #cad5df);
+        color: #08111f;
+        border: 0;
+        box-shadow: none;
+      }
+      .copy-ip-button.is-copied, .mini-btn.is-copied {
+        color: #08111f;
+        background: linear-gradient(135deg, var(--accent-2), #d2f3ff);
+        border-color: transparent;
+      }
+      .hero, .section, .footer { content-visibility: auto; contain-intrinsic-size: 1px 900px; }
+
+      @media (max-width: 1120px) {
+        .kits-grid, .cards-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 920px) {
+        .main-nav { display: none; }
+        .hero-grid, .about-grid, .payment-grid, .faq-grid, .cards-3 { grid-template-columns: 1fr; }
+        .hero { padding-top: 3.5rem; }
+        h1 { font-size: clamp(2.6rem, 11vw, 4rem); }
+      }
+      @media (max-width: 700px) {
+        .header-inner, .footer-inner { flex-direction: column; align-items: flex-start; }
+        .hero-meta, .kits-grid, .faq-grid, .cards-3 { grid-template-columns: 1fr; }
+        .server-card, .hero-actions, .final-actions { flex-direction: column; align-items: stretch; }
+      }
+    </style>
   </head>
   <body>
-    <div class="site-shell">
+    <div class="wrap">
       <header class="site-header">
         <div class="container header-inner">
           <a class="brand" href="#top" aria-label="Split FFA home">
@@ -29,44 +316,35 @@
               <small>Mace PvP Shop</small>
             </span>
           </a>
-
           <nav class="main-nav" aria-label="Main navigation">
             <a href="#kits">Kits</a>
             <a href="#about">Server</a>
             <a href="#payments">Payments</a>
             <a href="#faq">FAQ</a>
           </nav>
-
-          <a class="discord-link" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">
-            Join Discord
-          </a>
+          <a class="discord-link" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">Join Discord</a>
         </div>
       </header>
 
       <main id="top">
         <section class="hero">
           <div class="container hero-grid">
-            <div class="hero-copy">
-              <span class="eyebrow">Official Minecraft Store</span>
+            <div>
+              <span class="label">Official Minecraft Store</span>
               <h1>
                 Power up on a
-                <span class="gradient-text">clean, custom FFA</span>
+                <span class="gradient">clean, custom FFA</span>
                 server.
               </h1>
-              <p class="hero-text">
-                Split FFA is a Minecraft Mace PvP server with 200+ players, modified
-                items, custom swords, custom maces and tailor-made scripts built for
-                constant action on <strong>194.164.96.21:25619</strong>.
+              <p class="copy">
+                Split FFA is a Minecraft Mace PvP server with 200+ players, modified items, custom swords, custom maces
+                and tailor-made scripts built for constant action on <strong>194.164.96.21:25619</strong>.
               </p>
 
               <div class="hero-actions">
                 <a class="btn btn-primary" href="#kits">View Kits</a>
-                <button class="btn btn-secondary copy-ip-button" type="button" data-copy="194.164.96.21:25619">
-                  Copy Server IP
-                </button>
-                <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">
-                  Contact Owner
-                </a>
+                <button class="btn btn-secondary copy-ip-button" type="button" data-copy="194.164.96.21:25619">Copy Server IP</button>
+                <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">Contact Owner</a>
               </div>
 
               <div class="hero-tags">
@@ -91,83 +369,59 @@
               </div>
             </div>
 
-            <div class="hero-panel">
-              <div class="panel-glow"></div>
-              <div class="showcase-card">
-                <div class="showcase-top">
-                  <span class="server-badge">Split FFA</span>
-                  <span class="owner-badge">Owner: crxstal_sk</span>
+            <div class="showcase">
+              <div class="showcase-top">
+                <span class="pill gold">Split FFA</span>
+                <span class="pill">Owner: crxstal_sk</span>
+              </div>
+              <h2>Custom combat. Clean progression.</h2>
+              <p class="copy">Buy premium kits, support the server and get access to stronger loadouts made for real FFA fights.</p>
+
+              <ul class="list">
+                <li>Modified PvP items and scripts</li>
+                <li>Exclusive mace and sword advantages</li>
+                <li>Simple PayPal checkout</li>
+              </ul>
+
+              <div class="bar">
+                <span class="meta-label">Store quality</span>
+                <strong class="price" style="font-size:1rem;margin:0;">Premium</strong>
+              </div>
+
+              <div class="server-card">
+                <div>
+                  <span class="info-title">Server Address</span>
+                  <strong>194.164.96.21:25619</strong>
                 </div>
-
-                <h2>Custom combat. Clean progression.</h2>
-                <p>
-                  Buy premium kits, support the server and get access to stronger
-                  loadouts made for real FFA fights.
-                </p>
-
-                <ul class="showcase-list">
-                  <li>Modified PvP items and scripts</li>
-                  <li>Exclusive mace and sword advantages</li>
-                  <li>Simple PayPal checkout</li>
-                </ul>
-
-                <div class="showcase-bar">
-                  <span class="bar-label">Store quality</span>
-                  <span class="bar-value">Premium</span>
-                </div>
-
-                <div class="server-inline-card">
-                  <div>
-                    <span class="info-title">Server Address</span>
-                    <strong>194.164.96.21:25619</strong>
-                  </div>
-                  <button class="mini-button copy-ip-button" type="button" data-copy="194.164.96.21:25619">
-                    Copy IP
-                  </button>
-                </div>
+                <button class="mini-btn copy-ip-button" type="button" data-copy="194.164.96.21:25619">Copy IP</button>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="section compact-section" id="why">
+        <section class="section" id="why">
           <div class="container">
-            <div class="section-heading">
-              <span class="section-label">Why Split FFA</span>
+            <div class="section-head">
+              <span class="label">Why Split FFA</span>
               <h2>A premium FFA identity, not a generic shop page</h2>
-              <p>
-                The store is built around what players actually care about:
-                clear perks, clean checkout, active staff contact and a server with
-                custom combat identity.
-              </p>
+              <p>The store focuses on what players actually care about: clear perks, clean checkout, active staff contact and a custom combat identity.</p>
             </div>
 
-            <div class="feature-grid">
-              <article class="feature-card">
+            <div class="cards-3">
+              <article class="card feature-card">
                 <span class="feature-kicker">Gameplay</span>
-                <h3>Modified combat items</h3>
-                <p>
-                  Split FFA uses custom swords, maces and tailored scripts designed
-                  to make fights feel sharper and more memorable.
-                </p>
+                <h3 style="margin-top:1rem;">Modified combat items</h3>
+                <p style="margin-top:0.85rem;">Split FFA uses custom swords, maces and tailored scripts designed to make fights feel sharper and more memorable.</p>
               </article>
-
-              <article class="feature-card">
+              <article class="card feature-card">
                 <span class="feature-kicker">Community</span>
-                <h3>Active PvP environment</h3>
-                <p>
-                  With 200+ players on the server, the shop supports a real
-                  community instead of an empty store attached to a dead network.
-                </p>
+                <h3 style="margin-top:1rem;">Active PvP environment</h3>
+                <p style="margin-top:0.85rem;">With 200+ players on the server, the shop supports a real community instead of an empty store attached to a dead network.</p>
               </article>
-
-              <article class="feature-card">
+              <article class="card feature-card">
                 <span class="feature-kicker">Support</span>
-                <h3>Clear owner contact</h3>
-                <p>
-                  Need a delivery check, a custom request or purchase help? Players
-                  can reach <strong>crxstal_sk</strong> through the Discord server.
-                </p>
+                <h3 style="margin-top:1rem;">Clear owner contact</h3>
+                <p style="margin-top:0.85rem;">Need a delivery check, a custom request or purchase help? Players can reach <strong>crxstal_sk</strong> through the Discord server.</p>
               </article>
             </div>
           </div>
@@ -175,131 +429,99 @@
 
         <section class="section" id="kits">
           <div class="container">
-            <div class="section-heading">
-              <span class="section-label">Shop Kits</span>
+            <div class="section-head">
+              <span class="label">Shop Kits</span>
               <h2>Choose your next loadout</h2>
-              <p>
-                All packages are delivered after confirmation. Need custom balancing
-                or support? Open a ticket on Discord.
-              </p>
+              <p>All packages are delivered after confirmation. Need custom balancing or support? Open a ticket on Discord.</p>
             </div>
 
             <div class="kits-grid">
-              <article class="kit-card">
-                <div class="kit-tier">Starter upgrade</div>
-                <h3>Split</h3>
-                <p class="kit-price">EUR 4.99</p>
-                <p class="kit-copy">
-                  A clean entry package for players who want a better base kit and
-                  smoother FFA progression.
-                </p>
+              <article class="card">
+                <span class="pill">Starter upgrade</span>
+                <h3 style="margin-top:1rem;">Split</h3>
+                <p class="price">EUR 4.99</p>
+                <p class="kit-copy">A clean entry package for players who want a better base kit and smoother FFA progression.</p>
                 <ul class="kit-features">
                   <li>Enhanced starter loadout</li>
                   <li>Access to Split kit perks</li>
                   <li>Priority shop support</li>
                 </ul>
                 <div class="kit-actions">
-                  <a class="btn btn-primary paypal-button" data-item="Split Kit" data-price="4.99" href="#payments">
-                    Pay with PayPal
-                  </a>
+                  <a class="btn btn-primary paypal-button" data-item="Split Kit" data-price="4.99" href="#payments">Pay with PayPal</a>
                 </div>
               </article>
 
-              <article class="kit-card featured">
-                <div class="kit-tier">Most popular</div>
-                <h3>Split+</h3>
-                <p class="kit-price">EUR 8.99</p>
-                <p class="kit-copy">
-                  The best balance between value and power, built for players who
-                  want more pressure and more flexibility in fights.
-                </p>
+              <article class="card featured">
+                <span class="pill">Most popular</span>
+                <h3 style="margin-top:1rem;">Split+</h3>
+                <p class="price">EUR 8.99</p>
+                <p class="kit-copy">The best balance between value and power, built for players who want more pressure and more flexibility in fights.</p>
                 <ul class="kit-features">
                   <li>Everything from Split</li>
                   <li>Upgraded PvP utilities</li>
                   <li>Extra custom gear access</li>
                 </ul>
                 <div class="kit-actions">
-                  <a class="btn btn-primary paypal-button" data-item="Split Plus Kit" data-price="8.99" href="#payments">
-                    Pay with PayPal
-                  </a>
+                  <a class="btn btn-primary paypal-button" data-item="Split Plus Kit" data-price="8.99" href="#payments">Pay with PayPal</a>
                 </div>
               </article>
 
-              <article class="kit-card">
-                <div class="kit-tier">Competitive rank</div>
-                <h3>VIP</h3>
-                <p class="kit-price">EUR 14.99</p>
-                <p class="kit-copy">
-                  For players who want stronger prestige, better comfort and more
-                  visibility across the server community.
-                </p>
+              <article class="card">
+                <span class="pill">Competitive rank</span>
+                <h3 style="margin-top:1rem;">VIP</h3>
+                <p class="price">EUR 14.99</p>
+                <p class="kit-copy">For players who want stronger prestige, better comfort and more visibility across the server community.</p>
                 <ul class="kit-features">
                   <li>Premium VIP status</li>
                   <li>High-tier combat extras</li>
                   <li>Priority owner response queue</li>
                 </ul>
                 <div class="kit-actions">
-                  <a class="btn btn-primary paypal-button" data-item="VIP Kit" data-price="14.99" href="#payments">
-                    Pay with PayPal
-                  </a>
+                  <a class="btn btn-primary paypal-button" data-item="VIP Kit" data-price="14.99" href="#payments">Pay with PayPal</a>
                 </div>
               </article>
 
-              <article class="kit-card">
-                <div class="kit-tier">Personalized pack</div>
-                <h3>Custom Kit</h3>
-                <p class="kit-price">EUR 24.99</p>
-                <p class="kit-copy">
-                  Work directly with the owner to create a package that fits your
-                  playstyle, goals and preferred custom items.
-                </p>
+              <article class="card">
+                <span class="pill">Personalized pack</span>
+                <h3 style="margin-top:1rem;">Custom Kit</h3>
+                <p class="price">EUR 24.99</p>
+                <p class="kit-copy">Work directly with the owner to create a package that fits your playstyle, goals and preferred custom items.</p>
                 <ul class="kit-features">
                   <li>Custom review with owner</li>
                   <li>Tailored premium perks</li>
                   <li>Best option for unique requests</li>
                 </ul>
                 <div class="kit-actions">
-                  <a class="btn btn-primary paypal-button" data-item="Custom Kit" data-price="24.99" href="#payments">
-                    Pay with PayPal
-                  </a>
+                  <a class="btn btn-primary paypal-button" data-item="Custom Kit" data-price="24.99" href="#payments">Pay with PayPal</a>
                 </div>
               </article>
             </div>
           </div>
         </section>
 
-        <section class="section alt-section" id="about">
+        <section class="section" id="about">
           <div class="container about-grid">
             <div>
-              <span class="section-label">About The Server</span>
+              <span class="label">About The Server</span>
               <h2>A Minecraft FFA built for constant fights</h2>
-              <p class="body-copy">
-                Split FFA focuses on intense mace PvP with modified items, custom
-                combat scripts and a progression system that rewards active players.
-                The experience is designed to feel premium without losing the chaos
-                and speed that make FFA fun.
-              </p>
-              <p class="body-copy">
-                The store helps support server development and lets players unlock
-                kits that fit their style, from accessible upgrades to highly custom
-                premium setups.
-              </p>
+              <p class="copy">Split FFA focuses on intense mace PvP with modified items, custom combat scripts and a progression system that rewards active players.</p>
+              <p class="copy">The store helps support server development and lets players unlock kits that fit their style, from accessible upgrades to highly custom premium setups.</p>
             </div>
 
-            <div class="info-stack">
-              <div class="info-card">
+            <div class="stack">
+              <div class="card">
                 <span class="info-title">Owner</span>
                 <strong>crxstal_sk</strong>
               </div>
-              <div class="info-card">
+              <div class="card">
                 <span class="info-title">Community</span>
                 <strong>Discord tickets & support</strong>
               </div>
-              <div class="info-card">
+              <div class="card">
                 <span class="info-title">Gameplay</span>
                 <strong>Custom swords, maces, scripts</strong>
               </div>
-              <div class="info-card">
+              <div class="card">
                 <span class="info-title">Server IP</span>
                 <strong>194.164.96.21:25619</strong>
               </div>
@@ -307,43 +529,29 @@
           </div>
         </section>
 
-        <section class="section compact-section" id="how">
+        <section class="section" id="how">
           <div class="container">
-            <div class="section-heading">
-              <span class="section-label">How It Works</span>
+            <div class="section-head">
+              <span class="label">How It Works</span>
               <h2>Simple buying flow for your players</h2>
-              <p>
-                The process stays short and clear so players can buy quickly and
-                get back into fights without confusion.
-              </p>
+              <p>The process stays short and clear so players can buy quickly and get back into fights without confusion.</p>
             </div>
 
-            <div class="steps-grid">
-              <article class="step-card">
-                <span class="step-number">01</span>
-                <h3>Choose a kit</h3>
-                <p>
-                  Pick Split, Split+, VIP or a fully personalized Custom Kit based
-                  on your preferred progression level.
-                </p>
+            <div class="cards-3">
+              <article class="card step-card">
+                <span class="step-num">01</span>
+                <h3 style="margin-top:1rem;">Choose a kit</h3>
+                <p style="margin-top:0.85rem;">Pick Split, Split+, VIP or a fully personalized Custom Kit based on your preferred progression level.</p>
               </article>
-
-              <article class="step-card">
-                <span class="step-number">02</span>
-                <h3>Pay with PayPal</h3>
-                <p>
-                  Use the direct checkout button to open a clean PayPal purchase
-                  page with the package name and price already prepared.
-                </p>
+              <article class="card step-card">
+                <span class="step-num">02</span>
+                <h3 style="margin-top:1rem;">Pay with PayPal</h3>
+                <p style="margin-top:0.85rem;">Use the direct checkout button to open a clean PayPal purchase page with the package name and price already prepared.</p>
               </article>
-
-              <article class="step-card">
-                <span class="step-number">03</span>
-                <h3>Open a Discord ticket</h3>
-                <p>
-                  Send your Minecraft username and payment proof to the staff team
-                  so your purchase can be confirmed and delivered.
-                </p>
+              <article class="card step-card">
+                <span class="step-num">03</span>
+                <h3 style="margin-top:1rem;">Open a Discord ticket</h3>
+                <p style="margin-top:0.85rem;">Send your Minecraft username and payment proof to the staff team so your purchase can be confirmed and delivered.</p>
               </article>
             </div>
           </div>
@@ -352,104 +560,71 @@
         <section class="section" id="payments">
           <div class="container payment-grid">
             <div>
-              <span class="section-label">Simple Checkout</span>
+              <span class="label">Simple Checkout</span>
               <h2>Pay with PayPal in one click</h2>
-              <p class="body-copy">
-                Every kit button sends the player to a PayPal checkout page with the
-                selected package and price already filled in.
-              </p>
-              <p class="body-copy">
-                Replace the PayPal email once in the script, deploy, and the whole
-                store is ready.
-              </p>
+              <p class="copy">Every kit button sends the player to a PayPal checkout page with the selected package and price already filled in.</p>
+              <p class="copy">Replace the PayPal email once in the page source, deploy, and the whole store is ready.</p>
             </div>
 
-            <div class="payment-card">
+            <div class="card">
               <div class="payment-card-top">
-                <span class="payment-pill">PayPal Ready</span>
-                <span class="payment-state" id="paypal-status">Setup required</span>
+                <span class="pill gold">PayPal Ready</span>
+                <span class="pill" id="paypal-status">Setup required</span>
               </div>
               <h3>Checkout setup</h3>
-              <p id="paypal-help">
-                Add your real PayPal business email in <code>public/script.js</code>
-                to activate live checkout links.
-              </p>
-              <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">
-                Need help on Discord
-              </a>
+              <p class="help" id="paypal-help">Add your real PayPal business email in <code>public/index.html</code> to activate live checkout links.</p>
+              <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">Need help on Discord</a>
             </div>
           </div>
         </section>
 
-        <section class="section alt-section" id="faq">
+        <section class="section" id="faq">
           <div class="container">
-            <div class="section-heading">
-              <span class="section-label">FAQ</span>
+            <div class="section-head">
+              <span class="label">FAQ</span>
               <h2>Everything players need before buying</h2>
             </div>
 
             <div class="faq-grid">
-              <article class="faq-card">
+              <article class="card faq-card">
                 <h3>How do I receive my kit?</h3>
-                <p>
-                  After payment, contact the staff on Discord with your purchase
-                  proof and Minecraft username to get your kit delivered quickly.
-                </p>
+                <p style="margin-top:0.85rem;">After payment, contact the staff on Discord with your purchase proof and Minecraft username to get your kit delivered quickly.</p>
               </article>
-
-              <article class="faq-card">
+              <article class="card faq-card">
                 <h3>Can I ask for a custom deal?</h3>
-                <p>
-                  Yes. The Custom Kit is made for personalized requests. Reach out
-                  to <strong>crxstal_sk</strong> through the Discord server.
-                </p>
+                <p style="margin-top:0.85rem;">Yes. The Custom Kit is made for personalized requests. Reach out to <strong>crxstal_sk</strong> through the Discord server.</p>
               </article>
-
-              <article class="faq-card">
+              <article class="card faq-card">
                 <h3>Are the items unique to the server?</h3>
-                <p>
-                  Yes. Split FFA uses modified items and custom scripts, including
-                  custom swords, maces and server-specific balancing.
-                </p>
+                <p style="margin-top:0.85rem;">Yes. Split FFA uses modified items and custom scripts, including custom swords, maces and server-specific balancing.</p>
               </article>
-
-              <article class="faq-card">
+              <article class="card faq-card">
                 <h3>What if I need support?</h3>
-                <p>
-                  Join the Discord server and open a ticket. The shop is designed to
-                  keep the support flow simple and clean.
-                </p>
+                <p style="margin-top:0.85rem;">Join the Discord server and open a ticket. The shop is designed to keep the support flow simple and clean.</p>
               </article>
             </div>
           </div>
         </section>
 
-        <section class="section final-cta-section">
+        <section class="section">
           <div class="container">
-            <div class="final-cta-card">
-              <span class="section-label">Ready To Join</span>
-              <h2>Support Split FFA and upgrade your PvP experience</h2>
-              <p>
-                Join the server, pick your kit and keep the custom FFA experience
-                growing with premium support.
-              </p>
-              <div class="final-cta-actions">
+            <div class="card final">
+              <span class="label">Ready To Join</span>
+              <h2 style="margin-top:0.6rem;">Support Split FFA and upgrade your PvP experience</h2>
+              <p class="copy">Join the server, pick your kit and keep the custom FFA experience growing with premium support.</p>
+              <div class="final-actions">
                 <a class="btn btn-primary" href="#kits">Shop Now</a>
-                <button class="btn btn-secondary copy-ip-button" type="button" data-copy="194.164.96.21:25619">
-                  Copy IP
-                </button>
-                <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">
-                  Join Discord
-                </a>
+                <button class="btn btn-secondary copy-ip-button" type="button" data-copy="194.164.96.21:25619">Copy IP</button>
+                <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">Join Discord</a>
               </div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer class="site-footer">
+      <footer class="footer">
         <div class="container footer-inner">
-          <p>Split FFA Shop. Premium kits for a custom Minecraft FFA mace server.</p>
+          <p class="footer-copy">Split FFA Shop. Premium kits for a custom Minecraft FFA mace server.</p>
           <div class="footer-links">
             <a href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">Discord</a>
             <a href="#kits">Shop Kits</a>
@@ -458,6 +633,70 @@
       </footer>
     </div>
 
-    <script src="/script.js" defer></script>
+    <script>
+      const PAYPAL_CONFIG = {
+        business: "replace-with-your-paypal-email@example.com",
+        currency: "EUR"
+      };
+
+      const paypalButtons = document.querySelectorAll(".paypal-button");
+      const paypalStatus = document.querySelector("#paypal-status");
+      const paypalHelp = document.querySelector("#paypal-help");
+      const copyButtons = document.querySelectorAll(".copy-ip-button");
+      const hasLivePaypal =
+        PAYPAL_CONFIG.business &&
+        !PAYPAL_CONFIG.business.includes("replace-with-your-paypal-email");
+
+      if (hasLivePaypal) {
+        paypalStatus.textContent = "Live checkout enabled";
+        paypalHelp.textContent =
+          "PayPal buttons are active. Buyers can open a direct checkout page for the selected kit.";
+      }
+
+      paypalButtons.forEach((button) => {
+        const itemName = button.dataset.item;
+        const price = button.dataset.price;
+
+        if (!hasLivePaypal) {
+          button.setAttribute("aria-disabled", "true");
+          button.textContent = "Set PayPal email first";
+          return;
+        }
+
+        const paypalUrl = new URL("https://www.paypal.com/cgi-bin/webscr");
+        paypalUrl.searchParams.set("cmd", "_xclick");
+        paypalUrl.searchParams.set("business", PAYPAL_CONFIG.business);
+        paypalUrl.searchParams.set("item_name", itemName);
+        paypalUrl.searchParams.set("amount", price);
+        paypalUrl.searchParams.set("currency_code", PAYPAL_CONFIG.currency);
+        button.href = paypalUrl.toString();
+        button.target = "_blank";
+        button.rel = "noreferrer";
+      });
+
+      copyButtons.forEach((button) => {
+        const originalText = button.textContent;
+
+        button.addEventListener("click", async () => {
+          const value = button.dataset.copy;
+          if (!value) return;
+
+          try {
+            await navigator.clipboard.writeText(value);
+            button.textContent = "IP copied";
+            button.classList.add("is-copied");
+            window.setTimeout(() => {
+              button.textContent = originalText;
+              button.classList.remove("is-copied");
+            }, 1600);
+          } catch (_error) {
+            button.textContent = "Copy failed";
+            window.setTimeout(() => {
+              button.textContent = originalText;
+            }, 1600);
+          }
+        });
+      });
+    </script>
   </body>
 </html>

@@ -5,7 +5,7 @@ Clean Node.js shop website for a Minecraft FFA server.
 ## Production deploy
 
 `vercel.json` is configured to serve the `public` folder as a static site on Vercel.
-This avoids unnecessary server-side latency for the homepage.
+The storefront now ships as a single HTML page with inline CSS and inline JS to reduce extra asset requests.
 
 ## Run locally
 
@@ -18,7 +18,7 @@ The site will run on `http://localhost:3000`.
 
 ## PayPal setup
 
-Open [public/script.js](/C:/Dev/splitffa/public/script.js) and replace:
+Open [public/index.html](/C:/Dev/splitffa/public/index.html) and replace:
 
 ```js
 business: "replace-with-your-paypal-email@example.com"
@@ -29,6 +29,4 @@ with your real PayPal business email.
 ## Main files
 
 - [server.js](/C:/Dev/splitffa/server.js): Express server
-- [public/index.html](/C:/Dev/splitffa/public/index.html): shop content
-- [public/style.css](/C:/Dev/splitffa/public/style.css): yellow + sky blue visual style
-- [public/script.js](/C:/Dev/splitffa/public/script.js): PayPal checkout link generation
+- [public/index.html](/C:/Dev/splitffa/public/index.html): shop content, inline CSS, and inline JS
