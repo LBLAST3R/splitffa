@@ -1,0 +1,22 @@
+{
+  "name": "splitffa-shop",
+  "version": "1.0.0",
+  "description": "Aesthetic Minecraft FFA shop for Split FFA",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "minecraft",
+    "shop",
+    "ffa",
+    "paypal",
+    "express"
+  ],
+  "author": "Codex",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
