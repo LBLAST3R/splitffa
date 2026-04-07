@@ -6,6 +6,7 @@ const PAYPAL_CONFIG = {
 const paypalButtons = document.querySelectorAll(".paypal-button");
 const paypalStatus = document.querySelector("#paypal-status");
 const paypalHelp = document.querySelector("#paypal-help");
+const copyButtons = document.querySelectorAll(".copy-ip-button");
 
 const hasLivePaypal =
   PAYPAL_CONFIG.business &&
@@ -37,4 +38,33 @@ paypalButtons.forEach((button) => {
   button.href = paypalUrl.toString();
   button.target = "_blank";
   button.rel = "noreferrer";
+});
+
+copyButtons.forEach((button) => {
+  const originalText = button.textContent;
+
+  button.addEventListener("click", async () => {
+    const value = button.dataset.copy;
+
+    if (!value) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(value);
+      button.textContent = "IP copied";
+      button.classList.add("is-copied");
+
+      window.setTimeout(() => {
+        button.textContent = originalText;
+        button.classList.remove("is-copied");
+      }, 1600);
+    } catch (_error) {
+      button.textContent = "Copy failed";
+
+      window.setTimeout(() => {
+        button.textContent = originalText;
+      }, 1600);
+    }
+  });
 });

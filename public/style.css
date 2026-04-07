@@ -265,6 +265,28 @@ textarea {
   margin-top: 2rem;
 }
 
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.hero-tags span,
+.feature-kicker,
+.step-number {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+.hero-tags span {
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(181, 226, 255, 0.1);
+  background: rgba(10, 24, 45, 0.72);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -470,12 +492,36 @@ textarea {
   font-weight: 700;
 }
 
+.server-inline-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(181, 226, 255, 0.08);
+}
+
+.mini-button {
+  min-height: 42px;
+  padding: 0.75rem 0.95rem;
+  border: 1px solid rgba(181, 226, 255, 0.12);
+  border-radius: 14px;
+  background: rgba(10, 24, 45, 0.92);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
 .section {
   padding: 2rem 0 4rem;
 }
 
 .alt-section {
   padding: 4rem 0;
+}
+
+.compact-section {
+  padding-top: 1rem;
 }
 
 .section-heading {
@@ -497,14 +543,25 @@ textarea {
   gap: 1.25rem;
 }
 
+.feature-grid,
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
 .kit-card,
-.faq-card {
+.faq-card,
+.feature-card,
+.step-card {
   padding: 1.6rem;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
 .kit-card:hover,
 .faq-card:hover,
+.feature-card:hover,
+.step-card:hover,
 .payment-card:hover,
 .info-card:hover,
 .meta-card:hover,
@@ -518,6 +575,48 @@ textarea {
   background:
     linear-gradient(160deg, rgba(255, 213, 79, 0.08) 0%, rgba(79, 195, 247, 0.06) 100%),
     var(--bg-card-strong);
+}
+
+.feature-card,
+.step-card,
+.final-cta-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent),
+    var(--bg-card);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-kicker,
+.step-number {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 32px;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(130, 215, 255, 0.1);
+  border: 1px solid rgba(130, 215, 255, 0.14);
+  color: var(--accent-secondary);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.feature-card h3,
+.step-card h3,
+.final-cta-card h2 {
+  margin: 1rem 0 0;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+.feature-card p,
+.step-card p,
+.final-cta-card p {
+  margin: 0.85rem 0 0;
+  color: var(--text-secondary);
+  line-height: 1.7;
 }
 
 .kit-tier {
@@ -607,6 +706,24 @@ textarea {
   font-size: 1.2rem;
 }
 
+.final-cta-section {
+  padding-top: 0;
+}
+
+.final-cta-card {
+  padding: 2rem;
+  background:
+    linear-gradient(135deg, rgba(255, 213, 79, 0.08) 0%, rgba(79, 195, 247, 0.08) 100%),
+    var(--bg-card-strong);
+}
+
+.final-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+}
+
 .site-footer {
   padding: 2rem 0 2.6rem;
   border-top: 1px solid rgba(181, 226, 255, 0.08);
@@ -641,6 +758,13 @@ textarea {
   opacity: 0.72;
 }
 
+.copy-ip-button.is-copied,
+.mini-button.is-copied {
+  color: #07101d;
+  background: linear-gradient(135deg, var(--accent-secondary) 0%, #d2f3ff 100%);
+  border-color: transparent;
+}
+
 .hero,
 .section,
 .alt-section,
@@ -668,7 +792,9 @@ textarea {
 }
 
 @media (max-width: 1120px) {
-  .kits-grid {
+  .kits-grid,
+  .feature-grid,
+  .steps-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -685,7 +811,9 @@ textarea {
   .hero-grid,
   .about-grid,
   .payment-grid,
-  .faq-grid {
+  .faq-grid,
+  .feature-grid,
+  .steps-grid {
     grid-template-columns: 1fr;
   }
 
@@ -708,7 +836,9 @@ textarea {
 
   .hero-meta,
   .kits-grid,
-  .faq-grid {
+  .faq-grid,
+  .feature-grid,
+  .steps-grid {
     grid-template-columns: 1fr;
   }
 
@@ -716,7 +846,15 @@ textarea {
   .kit-card,
   .payment-card,
   .faq-card,
-  .meta-card {
+  .meta-card,
+  .feature-card,
+  .step-card,
+  .final-cta-card {
     border-radius: 24px;
+  }
+
+  .server-inline-card {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

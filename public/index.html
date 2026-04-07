@@ -8,6 +8,14 @@
       name="description"
       content="Official Split FFA Minecraft shop. Unlock Split, Split+, VIP and Custom Kit perks for the 200+ players FFA mace server at 194.164.96.21:25619."
     />
+    <meta name="theme-color" content="#07101d" />
+    <meta property="og:title" content="Split FFA Shop" />
+    <meta
+      property="og:description"
+      content="Official store for Split FFA. Premium kits, custom items, and PayPal checkout for the 200+ players mace PvP server."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="preload" href="/style.css" as="style" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
@@ -53,9 +61,18 @@
 
               <div class="hero-actions">
                 <a class="btn btn-primary" href="#kits">View Kits</a>
+                <button class="btn btn-secondary copy-ip-button" type="button" data-copy="194.164.96.21:25619">
+                  Copy Server IP
+                </button>
                 <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">
                   Contact Owner
                 </a>
+              </div>
+
+              <div class="hero-tags">
+                <span>200+ players</span>
+                <span>Custom scripts</span>
+                <span>Secure PayPal checkout</span>
               </div>
 
               <div class="hero-meta">
@@ -98,7 +115,60 @@
                   <span class="bar-label">Store quality</span>
                   <span class="bar-value">Premium</span>
                 </div>
+
+                <div class="server-inline-card">
+                  <div>
+                    <span class="info-title">Server Address</span>
+                    <strong>194.164.96.21:25619</strong>
+                  </div>
+                  <button class="mini-button copy-ip-button" type="button" data-copy="194.164.96.21:25619">
+                    Copy IP
+                  </button>
+                </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section compact-section" id="why">
+          <div class="container">
+            <div class="section-heading">
+              <span class="section-label">Why Split FFA</span>
+              <h2>A premium FFA identity, not a generic shop page</h2>
+              <p>
+                The store is built around what players actually care about:
+                clear perks, clean checkout, active staff contact and a server with
+                custom combat identity.
+              </p>
+            </div>
+
+            <div class="feature-grid">
+              <article class="feature-card">
+                <span class="feature-kicker">Gameplay</span>
+                <h3>Modified combat items</h3>
+                <p>
+                  Split FFA uses custom swords, maces and tailored scripts designed
+                  to make fights feel sharper and more memorable.
+                </p>
+              </article>
+
+              <article class="feature-card">
+                <span class="feature-kicker">Community</span>
+                <h3>Active PvP environment</h3>
+                <p>
+                  With 200+ players on the server, the shop supports a real
+                  community instead of an empty store attached to a dead network.
+                </p>
+              </article>
+
+              <article class="feature-card">
+                <span class="feature-kicker">Support</span>
+                <h3>Clear owner contact</h3>
+                <p>
+                  Need a delivery check, a custom request or purchase help? Players
+                  can reach <strong>crxstal_sk</strong> through the Discord server.
+                </p>
+              </article>
             </div>
           </div>
         </section>
@@ -237,6 +307,48 @@
           </div>
         </section>
 
+        <section class="section compact-section" id="how">
+          <div class="container">
+            <div class="section-heading">
+              <span class="section-label">How It Works</span>
+              <h2>Simple buying flow for your players</h2>
+              <p>
+                The process stays short and clear so players can buy quickly and
+                get back into fights without confusion.
+              </p>
+            </div>
+
+            <div class="steps-grid">
+              <article class="step-card">
+                <span class="step-number">01</span>
+                <h3>Choose a kit</h3>
+                <p>
+                  Pick Split, Split+, VIP or a fully personalized Custom Kit based
+                  on your preferred progression level.
+                </p>
+              </article>
+
+              <article class="step-card">
+                <span class="step-number">02</span>
+                <h3>Pay with PayPal</h3>
+                <p>
+                  Use the direct checkout button to open a clean PayPal purchase
+                  page with the package name and price already prepared.
+                </p>
+              </article>
+
+              <article class="step-card">
+                <span class="step-number">03</span>
+                <h3>Open a Discord ticket</h3>
+                <p>
+                  Send your Minecraft username and payment proof to the staff team
+                  so your purchase can be confirmed and delivered.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
         <section class="section" id="payments">
           <div class="container payment-grid">
             <div>
@@ -311,6 +423,28 @@
             </div>
           </div>
         </section>
+
+        <section class="section final-cta-section">
+          <div class="container">
+            <div class="final-cta-card">
+              <span class="section-label">Ready To Join</span>
+              <h2>Support Split FFA and upgrade your PvP experience</h2>
+              <p>
+                Join the server, pick your kit and keep the custom FFA experience
+                growing with premium support.
+              </p>
+              <div class="final-cta-actions">
+                <a class="btn btn-primary" href="#kits">Shop Now</a>
+                <button class="btn btn-secondary copy-ip-button" type="button" data-copy="194.164.96.21:25619">
+                  Copy IP
+                </button>
+                <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">
+                  Join Discord
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer class="site-footer">
@@ -324,6 +458,6 @@
       </footer>
     </div>
 
-    <script src="/script.js"></script>
+    <script src="/script.js" defer></script>
   </body>
 </html>
