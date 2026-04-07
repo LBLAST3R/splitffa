@@ -2,6 +2,11 @@
 
 Clean Node.js shop website for a Minecraft FFA server.
 
+## Production deploy
+
+`vercel.json` is configured to serve the `public` folder as a static site on Vercel.
+This avoids unnecessary server-side latency for the homepage.
+
 ## Run locally
 
 ```bash
