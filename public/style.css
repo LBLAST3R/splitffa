@@ -1,9 +1,9 @@
 :root {
   --bg-primary: #07101d;
   --bg-secondary: #0e1a2b;
-  --bg-card: rgba(10, 24, 45, 0.76);
-  --bg-card-strong: rgba(12, 28, 52, 0.96);
-  --bg-card-hover: rgba(16, 37, 68, 0.95);
+  --bg-card: rgba(10, 24, 45, 0.92);
+  --bg-card-strong: rgba(12, 28, 52, 0.98);
+  --bg-card-hover: rgba(16, 37, 68, 0.98);
   --border-subtle: rgba(181, 226, 255, 0.12);
   --border-accent: rgba(255, 215, 87, 0.34);
   --accent-primary: #ffd54f;
@@ -14,15 +14,15 @@
   --text-primary: #f3f8ff;
   --text-secondary: #b7c9da;
   --text-muted: #88a1b7;
-  --shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.34);
-  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.24);
+  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 18px rgba(0, 0, 0, 0.16);
   --radius-sm: 12px;
   --radius-md: 18px;
   --radius-lg: 28px;
   --radius-xl: 36px;
   --header-height: 84px;
   --container-width: 1180px;
-  --transition: 0.28s ease;
+  --transition: 0.18s ease-out;
 }
 
 *,
@@ -32,18 +32,18 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Inter", sans-serif;
+  font-family: "Segoe UI", "Trebuchet MS", sans-serif;
   color: var(--text-primary);
   background:
-    radial-gradient(circle at 12% 18%, rgba(255, 213, 79, 0.16) 0%, transparent 28%),
-    radial-gradient(circle at 84% 12%, rgba(79, 195, 247, 0.2) 0%, transparent 30%),
-    radial-gradient(circle at 72% 74%, rgba(130, 215, 255, 0.14) 0%, transparent 30%),
+    radial-gradient(circle at 12% 18%, rgba(255, 213, 79, 0.12) 0%, transparent 24%),
+    radial-gradient(circle at 84% 12%, rgba(79, 195, 247, 0.14) 0%, transparent 26%),
+    radial-gradient(circle at 72% 74%, rgba(130, 215, 255, 0.1) 0%, transparent 24%),
     linear-gradient(180deg, #07101d 0%, #091424 45%, #050b14 100%);
   overflow-x: hidden;
 }
@@ -51,7 +51,7 @@ body {
 body::before,
 body::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
 }
@@ -59,10 +59,10 @@ body::after {
 body::before {
   z-index: -2;
   background:
-    linear-gradient(rgba(130, 215, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(130, 215, 255, 0.045) 1px, transparent 1px);
-  background-size: 76px 76px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.34), transparent 95%);
+    linear-gradient(rgba(130, 215, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(130, 215, 255, 0.03) 1px, transparent 1px);
+  background-size: 88px 88px;
+  opacity: 0.35;
 }
 
 body::after {
@@ -95,8 +95,7 @@ textarea {
   top: 0;
   z-index: 100;
   height: var(--header-height);
-  backdrop-filter: blur(18px);
-  background: rgba(6, 15, 28, 0.8);
+  background: rgba(6, 15, 28, 0.96);
   border-bottom: 1px solid rgba(181, 226, 255, 0.08);
 }
 
@@ -126,7 +125,7 @@ textarea {
 .payment-state,
 .owner-badge,
 .server-badge {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
 }
 
 .brand strong {
@@ -150,9 +149,7 @@ textarea {
   font-size: 1.25rem;
   color: #0a1524;
   background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-  box-shadow:
-    0 10px 24px rgba(255, 213, 79, 0.18),
-    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  box-shadow: 0 6px 16px rgba(255, 213, 79, 0.16);
 }
 
 .main-nav {
@@ -182,13 +179,13 @@ textarea {
   color: #08111f;
   font-weight: 700;
   background: linear-gradient(135deg, var(--accent-secondary) 0%, #c0f1ff 100%);
-  box-shadow: 0 12px 28px rgba(79, 195, 247, 0.18);
+  box-shadow: 0 8px 18px rgba(79, 195, 247, 0.16);
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .discord-link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 34px rgba(79, 195, 247, 0.26);
+  box-shadow: 0 10px 22px rgba(79, 195, 247, 0.22);
 }
 
 .hero {
@@ -221,7 +218,7 @@ textarea {
 .kit-card h3,
 .payment-card h3 {
   margin: 0;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
 }
 
 .hero h1 {
@@ -236,6 +233,12 @@ textarea {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .gradient-text {
+    color: var(--accent-primary);
+  }
 }
 
 .hero-text,
@@ -282,11 +285,11 @@ textarea {
 .btn-primary {
   color: #07101d;
   background: linear-gradient(135deg, var(--accent-primary) 0%, #ffe38d 100%);
-  box-shadow: 0 18px 42px rgba(255, 213, 79, 0.18);
+  box-shadow: 0 10px 22px rgba(255, 213, 79, 0.16);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 22px 48px rgba(255, 213, 79, 0.26);
+  box-shadow: 0 12px 24px rgba(255, 213, 79, 0.22);
 }
 
 .btn-secondary {
@@ -318,7 +321,7 @@ textarea {
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-subtle);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent),
     var(--bg-card);
   box-shadow: var(--shadow-md);
 }
@@ -361,17 +364,16 @@ textarea {
   position: absolute;
   inset: 8% -8% -8% 8%;
   background:
-    radial-gradient(circle at 25% 20%, rgba(255, 213, 79, 0.2), transparent 32%),
-    radial-gradient(circle at 82% 70%, rgba(79, 195, 247, 0.22), transparent 36%);
-  filter: blur(28px);
+    radial-gradient(circle at 25% 20%, rgba(255, 213, 79, 0.12), transparent 30%),
+    radial-gradient(circle at 82% 70%, rgba(79, 195, 247, 0.14), transparent 32%);
 }
 
 .showcase-card {
   position: relative;
   padding: 2rem;
   background:
-    linear-gradient(145deg, rgba(255, 213, 79, 0.08) 0%, transparent 24%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    linear-gradient(145deg, rgba(255, 213, 79, 0.05) 0%, transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent),
     var(--bg-card-strong);
 }
 
@@ -507,14 +509,14 @@ textarea {
 .info-card:hover,
 .meta-card:hover,
 .showcase-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-3px);
   border-color: rgba(255, 213, 79, 0.24);
   box-shadow: var(--shadow-lg);
 }
 
 .kit-card.featured {
   background:
-    linear-gradient(160deg, rgba(255, 213, 79, 0.14) 0%, rgba(79, 195, 247, 0.1) 100%),
+    linear-gradient(160deg, rgba(255, 213, 79, 0.08) 0%, rgba(79, 195, 247, 0.06) 100%),
     var(--bg-card-strong);
 }
 
@@ -577,7 +579,7 @@ textarea {
 }
 
 .info-card strong {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   font-size: 1.1rem;
 }
 
@@ -637,6 +639,32 @@ textarea {
   background: linear-gradient(135deg, #8ea0b3 0%, #cad5df 100%);
   box-shadow: none;
   opacity: 0.72;
+}
+
+.hero,
+.section,
+.alt-section,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+  }
+
+  .btn,
+  .kit-card,
+  .faq-card,
+  .payment-card,
+  .info-card,
+  .meta-card,
+  .showcase-card,
+  .discord-link {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 @media (max-width: 1120px) {
