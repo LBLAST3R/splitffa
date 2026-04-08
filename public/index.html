@@ -35,12 +35,16 @@
       }
 
       * { box-sizing: border-box; }
-      html { scroll-behavior: auto; }
+      html {
+        scroll-behavior: auto;
+        scroll-padding-top: 96px;
+      }
       body {
         margin: 0;
         min-height: 100vh;
         font-family: "Segoe UI", "Trebuchet MS", sans-serif;
         color: var(--text);
+        line-height: 1.5;
         background:
           radial-gradient(circle at 12% 18%, rgba(255, 213, 79, 0.12) 0%, transparent 24%),
           radial-gradient(circle at 84% 12%, rgba(130, 215, 255, 0.14) 0%, transparent 26%),
@@ -62,8 +66,13 @@
 
       a { color: inherit; text-decoration: none; }
       button { font: inherit; }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--accent-2);
+        outline-offset: 3px;
+      }
       .wrap { position: relative; }
-      .container { width: min(100% - 2rem, var(--container)); margin: 0 auto; }
+      .container { width: min(100% - 2.25rem, var(--container)); margin: 0 auto; }
 
       .site-header {
         position: sticky;
@@ -71,6 +80,7 @@
         z-index: 20;
         background: rgba(7, 16, 29, 0.96);
         border-bottom: 1px solid rgba(181, 226, 255, 0.08);
+        box-shadow: 0 10px 30px rgba(2, 8, 16, 0.14);
       }
       .header-inner {
         min-height: 78px;
@@ -84,7 +94,7 @@
         align-items: center;
         gap: 0.9rem;
       }
-      .brand { gap: 0.85rem; }
+      .brand { gap: 0.85rem; flex-shrink: 0; }
       .brand-mark {
         width: 48px;
         height: 48px;
@@ -110,13 +120,31 @@
         transition: background var(--ease), color var(--ease);
       }
       .main-nav a:hover { background: rgba(130, 215, 255, 0.08); color: var(--text); }
+      .discord-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        padding: 0.9rem 1.25rem;
+        border-radius: 999px;
+        color: #08111f;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--accent-2), #d8f5ff);
+        box-shadow: 0 10px 24px rgba(130, 215, 255, 0.16);
+        transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
+      }
+      .discord-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(130, 215, 255, 0.22);
+        filter: brightness(1.03);
+      }
 
-      .hero, .section { padding: 2.5rem 0 4rem; }
+      .hero, .section { padding: 2.8rem 0 4.4rem; }
       .hero-grid, .about-grid, .payment-grid {
         display: grid;
-        gap: 1.25rem;
+        gap: 1.6rem;
       }
-      .hero-grid { grid-template-columns: 1.06fr 0.94fr; align-items: center; }
+      .hero-grid { grid-template-columns: 1.06fr 0.94fr; align-items: start; }
       .about-grid, .payment-grid { grid-template-columns: 1.05fr 0.95fr; }
 
       .label, .feature-kicker, .step-num, .pill {
@@ -145,7 +173,8 @@
         background-clip: text;
         -webkit-text-fill-color: transparent;
       }
-      .copy { max-width: 40rem; margin-top: 1rem; line-height: 1.7; }
+      .copy { max-width: 40rem; margin-top: 1rem; line-height: 1.72; }
+      .copy + .copy { margin-top: 0.95rem; }
       .hero-tags { flex-wrap: wrap; margin-top: 1rem; }
       .hero-tags span {
         padding: 0.5rem 0.8rem;
@@ -157,6 +186,9 @@
       }
 
       .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         min-height: 54px;
         padding: 0.95rem 1.3rem;
         border-radius: var(--radius-sm);
@@ -176,6 +208,10 @@
         background: rgba(12, 28, 52, 0.78);
         color: var(--text);
       }
+      .btn-secondary:hover, .mini-btn:hover {
+        background: rgba(15, 34, 62, 0.94);
+        border-color: rgba(181, 226, 255, 0.24);
+      }
       .mini-btn {
         min-height: 42px;
         padding: 0.75rem 0.95rem;
@@ -187,6 +223,7 @@
       .cards-3, .kits-grid, .faq-grid {
         display: grid;
         gap: 1.25rem;
+        align-items: stretch;
       }
       .cards-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .kits-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -203,9 +240,25 @@
         border: 1px solid var(--border);
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent), var(--card);
         box-shadow: var(--shadow);
+        min-width: 0;
       }
-      .card, .meta-card { padding: 1.6rem; }
-      .showcase { padding: 2rem; background: linear-gradient(145deg, rgba(255, 213, 79, 0.06), transparent 26%), var(--card-strong); }
+      .card, .meta-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 1.6rem;
+      }
+      .showcase {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 2rem;
+        background: linear-gradient(145deg, rgba(255, 213, 79, 0.06), transparent 26%), var(--card-strong);
+      }
+      .card strong, .showcase strong {
+        font-size: 1.02rem;
+        line-height: 1.4;
+      }
       .card::before, .showcase::before, .meta-card::before {
         content: "";
         position: absolute;
@@ -217,7 +270,7 @@
       .meta-value, .price { color: var(--accent); font-weight: 900; }
       .meta-value { font-size: 1.35rem; }
       .meta-label { display: block; margin-top: 0.35rem; color: var(--soft); }
-      .showcase h2 { font-size: 2rem; line-height: 1.08; }
+      .showcase h2 { font-size: 2rem; line-height: 1.08; margin-top: 0.15rem; }
       .list, .kit-features { margin: 1.2rem 0 0; padding: 0; list-style: none; }
       .list li, .kit-features li {
         position: relative;
@@ -244,16 +297,32 @@
       .bar { display: flex; justify-content: space-between; gap: 1rem; }
       .server-card { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 
-      .section-head { max-width: 42rem; margin-bottom: 2rem; }
+      .section-head { max-width: 42rem; margin-bottom: 2.15rem; }
       .section-head p { margin-top: 0.85rem; color: var(--muted); line-height: 1.7; }
       .featured { background: linear-gradient(160deg, rgba(255, 213, 79, 0.08), rgba(130, 215, 255, 0.06)), var(--card-strong); }
       .price { margin-top: 0.7rem; font-size: 2rem; }
       .kit-copy, .help { margin-top: 0.85rem; line-height: 1.7; }
-      .kit-actions { margin-top: 1.4rem; }
+      .card-title {
+        margin-top: 1rem;
+      }
+      .card-copy {
+        margin-top: 0.85rem;
+      }
+      .cta-heading {
+        margin-top: 0.6rem;
+      }
+      .bar-value {
+        font-size: 1rem;
+        margin: 0;
+      }
+      .kit-actions { margin-top: auto; padding-top: 1.45rem; }
       .kit-actions .btn { width: 100%; }
       .stack { display: grid; gap: 1rem; }
       .info-title { display: block; margin-bottom: 0.4rem; color: var(--soft); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em; }
-      .payment-card-top { justify-content: space-between; margin-bottom: 1rem; }
+      .payment-card-top { justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; }
+      .payment-actions {
+        margin-top: 1.35rem;
+      }
       code {
         padding: 0.15rem 0.45rem;
         border-radius: 8px;
@@ -272,7 +341,7 @@
         justify-content: space-between;
         gap: 1rem;
       }
-      .footer-copy { margin: 0; color: var(--soft); }
+      .footer-copy { margin: 0; color: var(--soft); max-width: 36rem; }
 
       .paypal-button[aria-disabled="true"] {
         pointer-events: none;
@@ -299,9 +368,14 @@
         h1 { font-size: clamp(2.6rem, 11vw, 4rem); }
       }
       @media (max-width: 700px) {
+        .container { width: min(100% - 1.4rem, var(--container)); }
         .header-inner, .footer-inner { flex-direction: column; align-items: flex-start; }
         .hero-meta, .kits-grid, .faq-grid, .cards-3 { grid-template-columns: 1fr; }
         .server-card, .hero-actions, .final-actions { flex-direction: column; align-items: stretch; }
+        .main-nav, .hero-tags, .footer-links { width: 100%; }
+        .showcase, .card, .meta-card { padding: 1.3rem; }
+        .showcase { padding: 1.5rem; }
+        .btn, .discord-link { width: 100%; }
       }
     </style>
   </head>
@@ -385,7 +459,7 @@
 
               <div class="bar">
                 <span class="meta-label">Store quality</span>
-                <strong class="price" style="font-size:1rem;margin:0;">Premium</strong>
+                <strong class="price bar-value">Premium</strong>
               </div>
 
               <div class="server-card">
@@ -410,18 +484,18 @@
             <div class="cards-3">
               <article class="card feature-card">
                 <span class="feature-kicker">Gameplay</span>
-                <h3 style="margin-top:1rem;">Modified combat items</h3>
-                <p style="margin-top:0.85rem;">Split FFA uses custom swords, maces and tailored scripts designed to make fights feel sharper and more memorable.</p>
+                <h3 class="card-title">Modified combat items</h3>
+                <p class="card-copy">Split FFA uses custom swords, maces and tailored scripts designed to make fights feel sharper and more memorable.</p>
               </article>
               <article class="card feature-card">
                 <span class="feature-kicker">Community</span>
-                <h3 style="margin-top:1rem;">Active PvP environment</h3>
-                <p style="margin-top:0.85rem;">With 200+ players on the server, the shop supports a real community instead of an empty store attached to a dead network.</p>
+                <h3 class="card-title">Active PvP environment</h3>
+                <p class="card-copy">With 200+ players on the server, the shop supports a real community instead of an empty store attached to a dead network.</p>
               </article>
               <article class="card feature-card">
                 <span class="feature-kicker">Support</span>
-                <h3 style="margin-top:1rem;">Clear owner contact</h3>
-                <p style="margin-top:0.85rem;">Need a delivery check, a custom request or purchase help? Players can reach <strong>crxstal_sk</strong> through the Discord server.</p>
+                <h3 class="card-title">Clear owner contact</h3>
+                <p class="card-copy">Need a delivery check, a custom request or purchase help? Players can reach <strong>crxstal_sk</strong> through the Discord server.</p>
               </article>
             </div>
           </div>
@@ -438,7 +512,7 @@
             <div class="kits-grid">
               <article class="card">
                 <span class="pill">Starter upgrade</span>
-                <h3 style="margin-top:1rem;">Split</h3>
+                <h3 class="card-title">Split</h3>
                 <p class="price">EUR 4.99</p>
                 <p class="kit-copy">A clean entry package for players who want a better base kit and smoother FFA progression.</p>
                 <ul class="kit-features">
@@ -453,7 +527,7 @@
 
               <article class="card featured">
                 <span class="pill">Most popular</span>
-                <h3 style="margin-top:1rem;">Split+</h3>
+                <h3 class="card-title">Split+</h3>
                 <p class="price">EUR 8.99</p>
                 <p class="kit-copy">The best balance between value and power, built for players who want more pressure and more flexibility in fights.</p>
                 <ul class="kit-features">
@@ -468,7 +542,7 @@
 
               <article class="card">
                 <span class="pill">Competitive rank</span>
-                <h3 style="margin-top:1rem;">VIP</h3>
+                <h3 class="card-title">VIP</h3>
                 <p class="price">EUR 14.99</p>
                 <p class="kit-copy">For players who want stronger prestige, better comfort and more visibility across the server community.</p>
                 <ul class="kit-features">
@@ -483,7 +557,7 @@
 
               <article class="card">
                 <span class="pill">Personalized pack</span>
-                <h3 style="margin-top:1rem;">Custom Kit</h3>
+                <h3 class="card-title">Custom Kit</h3>
                 <p class="price">EUR 24.99</p>
                 <p class="kit-copy">Work directly with the owner to create a package that fits your playstyle, goals and preferred custom items.</p>
                 <ul class="kit-features">
@@ -540,18 +614,18 @@
             <div class="cards-3">
               <article class="card step-card">
                 <span class="step-num">01</span>
-                <h3 style="margin-top:1rem;">Choose a kit</h3>
-                <p style="margin-top:0.85rem;">Pick Split, Split+, VIP or a fully personalized Custom Kit based on your preferred progression level.</p>
+                <h3 class="card-title">Choose a kit</h3>
+                <p class="card-copy">Pick Split, Split+, VIP or a fully personalized Custom Kit based on your preferred progression level.</p>
               </article>
               <article class="card step-card">
                 <span class="step-num">02</span>
-                <h3 style="margin-top:1rem;">Pay with PayPal</h3>
-                <p style="margin-top:0.85rem;">Use the direct checkout button to open a clean PayPal purchase page with the package name and price already prepared.</p>
+                <h3 class="card-title">Pay with PayPal</h3>
+                <p class="card-copy">Use the direct checkout button to open a clean PayPal purchase page with the package name and price already prepared.</p>
               </article>
               <article class="card step-card">
                 <span class="step-num">03</span>
-                <h3 style="margin-top:1rem;">Open a Discord ticket</h3>
-                <p style="margin-top:0.85rem;">Send your Minecraft username and payment proof to the staff team so your purchase can be confirmed and delivered.</p>
+                <h3 class="card-title">Open a Discord ticket</h3>
+                <p class="card-copy">Send your Minecraft username and payment proof to the staff team so your purchase can be confirmed and delivered.</p>
               </article>
             </div>
           </div>
@@ -573,7 +647,9 @@
               </div>
               <h3>Checkout setup</h3>
               <p class="help" id="paypal-help">Add your real PayPal business email in <code>public/index.html</code> to activate live checkout links.</p>
-              <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">Need help on Discord</a>
+              <div class="payment-actions">
+                <a class="btn btn-secondary" href="https://discord.gg/ANUJ4tk4" target="_blank" rel="noreferrer">Need help on Discord</a>
+              </div>
             </div>
           </div>
         </section>
@@ -588,19 +664,19 @@
             <div class="faq-grid">
               <article class="card faq-card">
                 <h3>How do I receive my kit?</h3>
-                <p style="margin-top:0.85rem;">After payment, contact the staff on Discord with your purchase proof and Minecraft username to get your kit delivered quickly.</p>
+                <p class="card-copy">After payment, contact the staff on Discord with your purchase proof and Minecraft username to get your kit delivered quickly.</p>
               </article>
               <article class="card faq-card">
                 <h3>Can I ask for a custom deal?</h3>
-                <p style="margin-top:0.85rem;">Yes. The Custom Kit is made for personalized requests. Reach out to <strong>crxstal_sk</strong> through the Discord server.</p>
+                <p class="card-copy">Yes. The Custom Kit is made for personalized requests. Reach out to <strong>crxstal_sk</strong> through the Discord server.</p>
               </article>
               <article class="card faq-card">
                 <h3>Are the items unique to the server?</h3>
-                <p style="margin-top:0.85rem;">Yes. Split FFA uses modified items and custom scripts, including custom swords, maces and server-specific balancing.</p>
+                <p class="card-copy">Yes. Split FFA uses modified items and custom scripts, including custom swords, maces and server-specific balancing.</p>
               </article>
               <article class="card faq-card">
                 <h3>What if I need support?</h3>
-                <p style="margin-top:0.85rem;">Join the Discord server and open a ticket. The shop is designed to keep the support flow simple and clean.</p>
+                <p class="card-copy">Join the Discord server and open a ticket. The shop is designed to keep the support flow simple and clean.</p>
               </article>
             </div>
           </div>
@@ -610,7 +686,7 @@
           <div class="container">
             <div class="card final">
               <span class="label">Ready To Join</span>
-              <h2 style="margin-top:0.6rem;">Support Split FFA and upgrade your PvP experience</h2>
+              <h2 class="cta-heading">Support Split FFA and upgrade your PvP experience</h2>
               <p class="copy">Join the server, pick your kit and keep the custom FFA experience growing with premium support.</p>
               <div class="final-actions">
                 <a class="btn btn-primary" href="#kits">Shop Now</a>
